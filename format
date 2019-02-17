@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ALL='F'
+
+if [ "$1" == '-a' -o "$1" == '--all' ]; then
+	ALL='T'
+fi
+
+for FILE in $(find src -type f -name '*.hs'); do
+	if [ $ALL == 'T' -o "$FILE" != 'src/main/haskell/Hilcode/Prelude.hs' ]; then
+		echo "$FILE"
+		hindent --line-length=9999 --indent-size=4 --sort-imports "$FILE"
+		haskell-formatter --style .haskell-formatter.yaml --force --input "$FILE" --output "$FILE"
+		stylish-haskell -i "$FILE"
+	fi
+done

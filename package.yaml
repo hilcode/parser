@@ -1,0 +1,69 @@
+name:                parser
+version:             0.0.0.1
+github:              hilcode/parser
+homepage:            https://github.com/hilcode/parser#readme
+copyright:           2019 Hilco Wijbenga
+license:             GPL-3
+author:              Hilco Wijbenga
+maintainer:          Hilco Wijbenga
+category:            Utility
+
+extra-source-files:
+- README.md
+
+ghc-options:
+- -Wall
+- -Werror
+- -Wcompat
+- -Wincomplete-record-updates
+- -Wincomplete-uni-patterns
+- -Wredundant-constraints
+- -Wtabs
+- -Wno-name-shadowing
+
+default-extensions:
+- NoImplicitPrelude
+- UnicodeSyntax
+
+dependencies:
+- base >= 4.7 && < 5
+- containers
+- enummapset
+- flow
+- hspec
+- ilist
+- vector
+- QuickCheck
+
+executables:
+  parser:
+    source-dirs:
+      - src/main/haskell
+    main: Main.hs
+    dependencies:
+      - parser
+
+library:
+  source-dirs:
+    - src/main/haskell
+  exposed-modules:
+    - Hilcode.Index.Internal
+    - Hilcode.Offset.Internal
+    - Hilcode.RegExp.Internal
+    - Hilcode.Index
+    - Hilcode.Offset
+    - Hilcode.RegExp
+    - Hilcode.Prelude
+
+tests:
+  spec:
+    source-dirs:
+      - src/test/haskell
+    main: Spec.hs
+    dependencies:
+      - base
+      - parser
+    other-modules:
+      - Hilcode.IndexSpec
+      - Hilcode.OffsetSpec
+      - Hilcode.RegExpSpec
